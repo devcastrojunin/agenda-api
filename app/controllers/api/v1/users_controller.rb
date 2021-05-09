@@ -2,15 +2,15 @@ module Api
     module V1
         class UsersController < ActionController::API
             def index
-                render json: Users.all
+                render json: User.all
             end
 
             def show
-                render json: Users.find(params[:id])
+                render json: User.find(params[:id])
             end
             
             def create
-                user = Users.new(user_params)
+                user = User.new(user_params)
 
                 if user.save
                     render json: user
