@@ -1,46 +1,43 @@
 module Api
-  module V1 
-    class StudentsController < ActionController::API    
-      # GET /students
+  module V1
+    class StudentsController < ActionController::API
       def index
         render json: Student.all
       end
-    
-      # GET /students/1
+
       def show
         render json: Student.find(params[:id])
       end
-    
-      # POST /students
+
       def create
         student = Student.new(student_params)
-    
+
         if student.save
-            render json: student
+          render json: student
         end
       end
-    
-      # PATCH/PUT /students/1
+
       def update
-        if @student.update(student_params)
-          render json: @student
+        student = Student.find(params[:id])
+        if student.update(student_params)
+          render json: student
         else
-          render json: @student.errors, status: :unprocessable_entity
+          render json: student.errors, status: :unprocessable_entity
         end
       end
-    
-      # DELETE /students/1
+
       def destroy
-        @student.destroy
+        student = Student.find(params[:id])
+        student.destroy
+        render json: { status: "SUCCESS", message: "Deleted student", data: student }, status: :ok
       end
-    
-      private    
-        # Only allow a list of trusted parameters through.
-        def student_params
-          params.require(:student)
-            .permit(:nome, :email, :status, :role_id)
-        end
+
+      private
+
+      def student_params
+        params.require(:student)
+          .permit(:nome, :email, :status, :role_id)
+      end
     end
   end
 end
-
