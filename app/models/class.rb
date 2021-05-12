@@ -1,4 +1,4 @@
 class Class < ApplicationRecord
-  belongs_to :matter
-  belongs_to :teacher
+  has_one :matter
+  has_one :teacher
 end

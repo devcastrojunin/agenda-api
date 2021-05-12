@@ -1,3 +1,3 @@
 class Student < ApplicationRecord
-  belongs_to :role
+  has_one :role
 end
